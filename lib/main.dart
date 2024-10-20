@@ -77,7 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                Padding(EdgeInsets.all(8.0),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     child: const Text("News"),
                     onPressed: () {
@@ -85,23 +86,32 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 ),
-                ElevatedButton(
-                  child: const Text("Auditions"),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
-                  },
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    child: const Text("Auditions"),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
+                    },
+                  ),
                 ),
-                ElevatedButton(
-                  child: const Text("Podcasts"),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
-                  },
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    child: const Text("Podcasts"),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
+                    },
+                  ),
                 ),
-                ElevatedButton(
-                  child: const Text("Salman Khan"),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
-                  },
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    child: const Text("Salman Khan"),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
+                    },
+                  ),
                 ),
               ],
             ),
@@ -151,6 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Profile',
           ),
         ],
+
          onTap: (int index) {
     Navigator.push(
       context,
