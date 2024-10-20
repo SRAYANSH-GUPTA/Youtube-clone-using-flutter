@@ -34,9 +34,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var content = ['jsbjsbg', 'jksbgjsg', 'skjbgs', 'sjkghusk', 'kjsbegs'];
 
+  
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Row(
@@ -50,25 +52,23 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()),
-                );
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
               },
-              child: Image.asset('assets/chromecast.jpg', width: 50, height: 50)),
+              child: Image.asset('assets/chromecast.jpg', width: 50, height: 50),
+            ),
             InkWell(
-              onTap: ()
-              {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()),
-                );
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
               },
-              child: Image.asset('assets/bell.jpg', width: 50, height: 50)),
+              child: Image.asset('assets/bell.jpg', width: 50, height: 50),
+            ),
             InkWell(
-              onTap: ()
-              {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()),
-                );
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
               },
-              child: const Icon(Icons.search_outlined, color: Colors.white, size: 24.0)),
+              child: const Icon(Icons.search_outlined, color: Colors.white, size: 24.0),
+            ),
           ],
         ),
       ),
@@ -83,40 +83,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text("News"),
                   onPressed: () {
                     print('News pressed');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const BlankPage()),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
                   },
                 ),
                 ElevatedButton(
                   child: const Text("Auditions"),
                   onPressed: () {
                     print('Auditions pressed');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const BlankPage()),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
                   },
                 ),
                 ElevatedButton(
                   child: const Text("Podcasts"),
                   onPressed: () {
                     print('Podcasts pressed');
-                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const BlankPage()),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
                   },
                 ),
                 ElevatedButton(
                   child: const Text("Salman Khan"),
                   onPressed: () {
                     print('Salman Khan pressed');
-                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const BlankPage()),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
                   },
                 ),
               ],
@@ -128,12 +116,8 @@ class _MyHomePageState extends State<MyHomePage> {
               itemBuilder: (context, index) {
                 return Container(
                   child: InkWell(
-                    onTap: ()
-                    {
-                        Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const videolayout()),
-                    );
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const VideoLayout()));
                     },
                     child: Column(
                       children: [
@@ -148,6 +132,40 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.ondemand_video),
+            label: 'Shorts',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Add',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.subscriptions),
+            label: 'Subscriptions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _currentIndex, // Keep track of the selected index
+        onTap: (int index) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const BlankPage()), // Always navigate to BlankPage
+          );
+        },
+        backgroundColor: Colors.black,
+        type: BottomNavigationBarType.fixed,
+      ),
     );
   }
 }
@@ -159,20 +177,21 @@ class BlankPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Black page"),
+        title: const Text("Blank Page"),
       ),
       body: const Center(child: Text("This is the second route")),
     );
   }
 }
-class videolayout extends StatelessWidget {
-  const videolayout({super.key});
+
+class VideoLayout extends StatelessWidget {
+  const VideoLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("video layout"),
+        title: const Text("Video Layout"),
       ),
       body: const Center(child: Text("This is the third route")),
     );
