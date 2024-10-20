@@ -66,24 +66,40 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text("News"),
                   onPressed: () {
                     print('News pressed');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const BlankPage()),
+                    );
                   },
                 ),
                 ElevatedButton(
                   child: const Text("Auditions"),
                   onPressed: () {
                     print('Auditions pressed');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const BlankPage()),
+                    );
                   },
                 ),
                 ElevatedButton(
                   child: const Text("Podcasts"),
                   onPressed: () {
                     print('Podcasts pressed');
+                     Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const BlankPage()),
+                    );
                   },
                 ),
                 ElevatedButton(
                   child: const Text("Salman Khan"),
                   onPressed: () {
                     print('Salman Khan pressed');
+                     Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const BlankPage()),
+                    );
                   },
                 ),
               ],
@@ -91,15 +107,23 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: array.length, // Change as needed
+              itemCount: array.length,
               itemBuilder: (context, index) {
                 return Container(
-                  height: 300,
-                  child: Column(
-                    children: [
-                      Image.asset('assets/pic${index + 1}.jpg'),
-                      Text(content[index]),
-                    ],
+                  child: InkWell(
+                    onTap: ()
+                    {
+                        Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const videolayout()),
+                    );
+                    },
+                    child: Column(
+                      children: [
+                        Image.asset('assets/pic${index + 1}.jpg'),
+                        Text(content[index]),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -107,6 +131,33 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class BlankPage extends StatelessWidget {
+  const BlankPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Black page"),
+      ),
+      body: const Center(child: Text("This is the second route")),
+    );
+  }
+}
+class videolayout extends StatelessWidget {
+  const videolayout({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("video layout"),
+      ),
+      body: const Center(child: Text("This is the third route")),
     );
   }
 }
