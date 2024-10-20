@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-var array = [1, 2, 3, 4, 5];
 
 void main() {
   runApp(const MyApp());
@@ -32,13 +31,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var content = ['jsbjsbg', 'jksbgjsg', 'skjbgs', 'sjkghusk', 'kjsbegs'];
-
-  
+  var content = ['Video 1', 'Video 2', 'Video 3', 'Video 4', 'Video 5'];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.black,
+    return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Row(
@@ -74,36 +72,34 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
-          Container(
-            height: 80,
+          SizedBox(
+            height: 40,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                ElevatedButton(
-                  child: const Text("News"),
-                  onPressed: () {
-                    print('News pressed');
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
-                  },
+                Padding(EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    child: const Text("News"),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
+                    },
+                  ),
                 ),
                 ElevatedButton(
                   child: const Text("Auditions"),
                   onPressed: () {
-                    print('Auditions pressed');
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
                   },
                 ),
                 ElevatedButton(
                   child: const Text("Podcasts"),
                   onPressed: () {
-                    print('Podcasts pressed');
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
                   },
                 ),
                 ElevatedButton(
                   child: const Text("Salman Khan"),
                   onPressed: () {
-                    print('Salman Khan pressed');
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
                   },
                 ),
@@ -112,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: array.length,
+              itemCount: content.length,
               itemBuilder: (context, index) {
                 return Container(
                   child: InkWell(
@@ -122,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         Image.asset('assets/pic${index + 1}.jpg'),
-                        Text(content[index]),
+                        Text(content[index], style: const TextStyle(color: Colors.white)),
                       ],
                     ),
                   ),
@@ -133,7 +129,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -156,14 +151,15 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Profile',
           ),
         ],
-        currentIndex: _currentIndex, // Keep track of the selected index
-        onTap: (int index) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const BlankPage()), // Always navigate to BlankPage
-          );
-        },
-        backgroundColor: Colors.black,
+         onTap: (int index) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const BlankPage()), 
+    );
+  },
+        backgroundColor: Colors.black, 
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
         type: BottomNavigationBarType.fixed,
       ),
     );
@@ -178,8 +174,9 @@ class BlankPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Blank Page"),
+        backgroundColor: Colors.black,
       ),
-      body: const Center(child: Text("This is the second route")),
+      body: const Center(child: Text("This is the second route", style: TextStyle(color: Colors.white))),
     );
   }
 }
@@ -190,10 +187,89 @@ class VideoLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text("Video Layout"),
+        backgroundColor: Colors.black,
+        title: const Text('Video Title', style: TextStyle(color: Colors.white)),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_vert, color: Colors.white),
+            onPressed: () {
+            },
+          ),
+        ],
       ),
-      body: const Center(child: Text("This is the third route")),
+      body: Column(
+        children: [
+          Container(
+            height: 300,
+            color: Colors.grey,
+            child: (Image.asset('assets/video.jpg')
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text("The REAL Life & Times of Krishna- Nilesh Oak Returns | Scientific",
+              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          const SizedBox(height: 4),
+          const Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+              '1.2M views 8 days ago History - The Ramveer Show ...more',
+              style: TextStyle(color: Colors.grey, fontSize: 10),
+            ),
+          ), const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'BeerBiceps',
+              style: TextStyle(color: Colors.grey, fontSize: 14),
+            ),
+          ),
+          const SizedBox(height: 8),
+
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _ActionButton(icon: Icons.thumb_up_alt, label: 'Like'),
+                _ActionButton(icon: Icons.comment, label: 'Comment'),
+                _ActionButton(icon: Icons.share, label: 'Share'),
+                _ActionButton(icon: Icons.save_alt, label: 'Save'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'This is a brief description of the video. It provides an overview of what the video is about.',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ActionButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _ActionButton({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Icon(icon, color: Colors.white),
+        const SizedBox(height: 4),
+        Text(label, style: const TextStyle(color: Colors.white)),
+      ],
     );
   }
 }
