@@ -1,5 +1,20 @@
 import 'package:flutter/material.dart';
 
+var content = [
+  "INDIA'S GOT LATENT | EP 005 ft. @KunalKamra @AtulKhatriComedian",
+  "OH HELLO! - A COMEDY SPECIAL BY RAHUL DUA | 2024",
+  "COMEDIAN @SamayRainaOfficial cooks Biryani for Sahiba Bali | Wasting Samay |...",
+  "Free API - Our open-source project got an upgrade"
+];
+
+var channel = ['Samay Raina', 'Rahul Dua', 'Zomato', 'Chai aur Code'];
+var views = [
+  '14M views  1 month ago',
+  '730K views . 1 day ago',
+  '5.1M views . 2 years ago',
+  '11K views . 1 day ago'
+];
+
 void main() {
   runApp(const MyApp());
 }
@@ -30,21 +45,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var content = [
-    'INDIA\'S GOT LATENT | EP 005 ft. @KunalKamra @AtulKhatriComedian',
-    'OH HELLO! - A COMEDY SPECIAL BY RAHUL DUA | 2024',
-    'COMEDIAN @SamayRainaOfficial cooks Biryani for Sahiba Bali | Wasting Samay |...',
-    'Free API - Our open-source project got an upgrade'
-  ];
-
-  var channel = ['Samay Raina', 'Rahul Dua', 'Zomato', 'Chai aur Code'];
-  var views = [
-    '14M views  1 month ago',
-    '730K views . 1 day ago',
-    '5.1M views . 2 years ago',
-    '11K views . 1 day ago'
-  ];
-
   int _currentIndex = 0;
 
   void _onItemTapped(int index) {
@@ -103,7 +103,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const VideoLayout()),
+                        MaterialPageRoute(
+                          builder: (context) => VideoLayout(
+                            data: index,
+                            currentIndex: _currentIndex,
+                            onItemTapped: _onItemTapped,
+                          ),
+                        ),
                       );
                     },
                     child: Column(
@@ -111,13 +117,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         Image.asset('assets/pic${index + 1}.jpg'),
                         Padding(
-                          padding: EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.only(top: 10),
                           child: Row(
                             children: <Widget>[
                               CircleAvatar(
-                                backgroundImage: AssetImage('assets/logo.png'),
+                                backgroundImage: AssetImage('assets/pf.jpg'),
                               ),
-                              const SizedBox(width: 8), // Space between avatar and text
+                              const SizedBox(width: 8),
                               Flexible(
                                 child: Text(content[index], style: const TextStyle(color: Colors.white)),
                               ),
@@ -125,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 50),
+                          padding: const EdgeInsets.only(left: 50),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -144,19 +150,19 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.ondemand_video), label: 'Shorts'),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
-          BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: 'Subscriptions'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-        onTap: _onItemTapped,
-        backgroundColor: Colors.black,
-        currentIndex: _currentIndex,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey,
-      ),
+  items: const <BottomNavigationBarItem>[
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+    BottomNavigationBarItem(icon: Icon(Icons.ondemand_video), label: 'Shorts'),
+    BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
+    BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: 'Subscriptions'),
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+  ],
+  onTap: _onItemTapped,
+  currentIndex: _currentIndex,
+  selectedItemColor: Colors.white,
+  unselectedItemColor: Colors.grey,
+  backgroundColor: Colors.black,  // Explicitly set the background color
+),
     );
   }
 
@@ -197,12 +203,30 @@ class BlankPage extends StatelessWidget {
       body: const Center(
         child: Text("This is the second route", style: TextStyle(color: Colors.white)),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+  items: const <BottomNavigationBarItem>[
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+    BottomNavigationBarItem(icon: Icon(Icons.ondemand_video), label: 'Shorts'),
+    BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
+    BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: 'Subscriptions'),
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+  ],
+  onTap: _onItemTapped,
+  currentIndex: _currentIndex,
+  selectedItemColor: Colors.white,
+  unselectedItemColor: Colors.grey,
+  backgroundColor: Colors.black,  // Explicitly set the background color
+),
     );
   }
 }
 
 class VideoLayout extends StatelessWidget {
-  const VideoLayout({super.key});
+  const VideoLayout({super.key, required this.data, required this.currentIndex, required this.onItemTapped});
+  
+  final int data;
+  final int currentIndex;
+  final ValueChanged<int> onItemTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -210,7 +234,7 @@ class VideoLayout extends StatelessWidget {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('Video Title', style: TextStyle(color: Colors.white)),
+        title: Text(content[data], style: const TextStyle(color: Colors.white)),
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert, color: Colors.white),
@@ -223,29 +247,30 @@ class VideoLayout extends StatelessWidget {
           Container(
             height: 300,
             color: Colors.grey,
-            child: Image.asset('assets/video.jpg'),
+            child: Image.asset('assets/pic${data + 1}.jpg'), // Corrected indexing for image
           ),
           const SizedBox(height: 8),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              "The REAL Life & Times of Krishna- Nilesh Oak Returns | Scientific",
-              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+              content[data],
+              style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: 4),
-          const Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Text(
-              '1.2M views 8 days ago History - The Ramveer Show ...more',
-              style: TextStyle(color: Colors.grey, fontSize: 10),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'BeerBiceps',
-              style: TextStyle(color: Colors.grey, fontSize: 14),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
+                const CircleAvatar(
+                  backgroundImage: AssetImage('assets/pf.jpg'),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  channel[data],
+                  style: const TextStyle(color: Colors.grey, fontSize: 14),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 8),
@@ -265,12 +290,26 @@ class VideoLayout extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              'This is a brief description of the video. It provides an overview of what the video is about.',
+              'Description...........................................................',
               style: TextStyle(color: Colors.white),
             ),
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+  items: const <BottomNavigationBarItem>[
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+    BottomNavigationBarItem(icon: Icon(Icons.ondemand_video), label: 'Shorts'),
+    BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
+    BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: 'Subscriptions'),
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+  ],
+  onTap: _onItemTapped,
+  currentIndex: _currentIndex,
+  selectedItemColor: Colors.white,
+  unselectedItemColor: Colors.grey,
+  backgroundColor: Colors.black,  // Explicitly set the background color
+),
     );
   }
 }
