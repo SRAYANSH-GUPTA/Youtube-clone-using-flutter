@@ -49,9 +49,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Text("Premium", style: TextStyle(color: Colors.white)),
               ],
             ),
-            Image.asset('assets/chromecast.jpg', width: 50, height: 50),
-            Image.asset('assets/bell.jpg', width: 50, height: 50),
-            const Icon(Icons.search_outlined, color: Colors.white, size: 24.0),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()),
+                );
+              },
+              child: Image.asset('assets/chromecast.jpg', width: 50, height: 50)),
+            InkWell(
+              onTap: ()
+              {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()),
+                );
+              },
+              child: Image.asset('assets/bell.jpg', width: 50, height: 50)),
+            InkWell(
+              onTap: ()
+              {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()),
+                );
+              },
+              child: const Icon(Icons.search_outlined, color: Colors.white, size: 24.0)),
           ],
         ),
       ),
