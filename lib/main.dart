@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var content = ['Video 1', 'Video 2', 'Video 3', 'Video 4', 'Video 5'];
+  var content = ['India Got latent', 'Oh Hello', 'Wasting Samay', 'Free API'];
 
   @override
   Widget build(BuildContext context) {
