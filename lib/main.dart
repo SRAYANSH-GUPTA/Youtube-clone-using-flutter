@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -31,7 +30,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var content = ['India Got latent', 'Oh Hello', 'Wasting Samay', 'Free API'];
+  var content = [
+    'INDIA\'S GOT LATENT | EP 005 ft. @KunalKamra @AtulKhatriComedian',
+    'OH HELLO! - A COMEDY SPECIAL BY RAHUL DUA | 2024',
+    'COMEDIAN @SamayRainaOfficial cooks Biryani for Sahiba Bali | Wasting Samay |...',
+    'Free API - Our open-source project got an upgrade'
+  ];
+
+  var channel = ['Samay Raina', 'Rahul Dua', 'Zomato', 'Chai aur Code'];
+  var views = [
+    '14M views  1 month ago',
+    '730K views . 1 day ago',
+    '5.1M views . 2 years ago',
+    '11K views . 1 day ago'
+  ];
+
+  int _currentIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,23 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Text("Premium", style: TextStyle(color: Colors.white)),
               ],
             ),
-            InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
-              },
-              child: Image.asset('assets/chromecast.jpg', width: 50, height: 50),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
-              },
-              child: Image.asset('assets/bell.jpg', width: 50, height: 50),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
-              },
-              child: const Icon(Icons.search_outlined, color: Colors.white, size: 24.0),
+            Row(
+              children: [
+                _buildIconButton(context, 'assets/chromecast.jpg'),
+                _buildIconButton(context, 'assets/bell.jpg'),
+                _buildIconButton(context, null, icon: Icons.search_outlined),
+              ],
             ),
           ],
         ),
@@ -77,42 +86,10 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    child: const Text("News"),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    child: const Text("Auditions"),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    child: const Text("Podcasts"),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    child: const Text("Salman Khan"),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
-                    },
-                  ),
-                ),
+                _buildCategoryButton(context, "News"),
+                _buildCategoryButton(context, "Auditions"),
+                _buildCategoryButton(context, "Podcasts"),
+                _buildCategoryButton(context, "Salman Khan"),
               ],
             ),
           ),
@@ -121,14 +98,42 @@ class _MyHomePageState extends State<MyHomePage> {
               itemCount: content.length,
               itemBuilder: (context, index) {
                 return Container(
+                  padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const VideoLayout()));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const VideoLayout()),
+                      );
                     },
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Image.asset('assets/pic${index + 1}.jpg'),
-                        Text(content[index], style: const TextStyle(color: Colors.white)),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Row(
+                            children: <Widget>[
+                              CircleAvatar(
+                                backgroundImage: AssetImage('assets/logo.png'),
+                              ),
+                              const SizedBox(width: 8), // Space between avatar and text
+                              Flexible(
+                                child: Text(content[index], style: const TextStyle(color: Colors.white)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 50),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(channel[index], style: const TextStyle(color: Colors.white)),
+                              Text(views[index], style: const TextStyle(color: Colors.grey)),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -140,39 +145,41 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.ondemand_video),
-            label: 'Shorts',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Add',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.subscriptions),
-            label: 'Subscriptions',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.ondemand_video), label: 'Shorts'),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
+          BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: 'Subscriptions'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
-
-         onTap: (int index) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const BlankPage()), 
-    );
-  },
-        backgroundColor: Colors.black, 
+        onTap: _onItemTapped,
+        backgroundColor: Colors.black,
+        currentIndex: _currentIndex,
         selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white,
-        type: BottomNavigationBarType.fixed,
+        unselectedItemColor: Colors.grey,
       ),
+    );
+  }
+
+  Padding _buildCategoryButton(BuildContext context, String label) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        child: Text(label),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
+        },
+      ),
+    );
+  }
+
+  Widget _buildIconButton(BuildContext context, String? imagePath, {IconData? icon}) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const BlankPage()));
+      },
+      child: imagePath != null
+          ? Image.asset(imagePath, width: 50, height: 50)
+          : Icon(icon, color: Colors.white, size: 24.0),
     );
   }
 }
@@ -187,7 +194,9 @@ class BlankPage extends StatelessWidget {
         title: const Text("Blank Page"),
         backgroundColor: Colors.black,
       ),
-      body: const Center(child: Text("This is the second route", style: TextStyle(color: Colors.white))),
+      body: const Center(
+        child: Text("This is the second route", style: TextStyle(color: Colors.white)),
+      ),
     );
   }
 }
@@ -205,8 +214,7 @@ class VideoLayout extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert, color: Colors.white),
-            onPressed: () {
-            },
+            onPressed: () {},
           ),
         ],
       ),
@@ -215,13 +223,13 @@ class VideoLayout extends StatelessWidget {
           Container(
             height: 300,
             color: Colors.grey,
-            child: (Image.asset('assets/video.jpg')
-            ),
+            child: Image.asset('assets/video.jpg'),
           ),
           const SizedBox(height: 8),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text("The REAL Life & Times of Krishna- Nilesh Oak Returns | Scientific",
+            child: Text(
+              "The REAL Life & Times of Krishna- Nilesh Oak Returns | Scientific",
               style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
@@ -232,7 +240,8 @@ class VideoLayout extends StatelessWidget {
               '1.2M views 8 days ago History - The Ramveer Show ...more',
               style: TextStyle(color: Colors.grey, fontSize: 10),
             ),
-          ), const Padding(
+          ),
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'BeerBiceps',
@@ -240,7 +249,6 @@ class VideoLayout extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
